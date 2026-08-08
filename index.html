@@ -1,603 +1,795 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mervan ❤️ Havin</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Havin & Mervan - Bizim Hikayemiz</title>
+    <!-- Fontlar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Sacramento&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+    <style>
+        :root {
+            --burgundy: #5c0612;
+            --dark-burgundy: #3a0007;
+            --paper: #f4eee5;
+            --paper-light: #fbf9f5;
+            --text-dark: #111111;
+            --accent-red: #8b0000;
+        }
 
-html{
-    scroll-behavior:smooth;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-body{
-    background:#080607;
-    color:#fff;
-    font-family:Georgia,serif;
-}
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
 
-.section{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:60px 25px;
-}
+        /* 🔒 GİRİŞ KAPAK EKRANI (İLK GÖRÜNEN) 🔒 */
+        #cover-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: linear-gradient(135deg, #1a0003 0%, #5c0612 50%, #0d0002 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 11000; /* Şifre ekranının da üstünde */
+            color: #fff;
+            text-align: center;
+            transition: transform 1s ease-in-out;
+            padding: 20px;
+        }
 
-/* AÇILIŞ */
+        #cover-screen.hidden {
+            transform: translateY(-100%);
+        }
 
-#hero{
-    background:
-    radial-gradient(circle at center,#2a1a24 0%,#120b10 45%,#050505 100%);
-}
+        .cover-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 6px;
+            color: #f4eee5;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
 
-.hero-content{
-    animation:fadeIn 2s ease;
-}
+        .cover-title {
+            font-family: 'Alex Brush', cursive;
+            font-size: 5.5rem;
+            color: #f4eee5;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+        }
 
-.names{
-    font-size:50px;
-    letter-spacing:3px;
-    margin-bottom:25px;
-    font-weight:normal;
-}
+        .start-btn {
+            background: transparent;
+            border: 2px solid #f4eee5;
+            color: #f4eee5;
+            padding: 15px 45px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 3px;
+            cursor: pointer;
+            border-radius: 40px;
+            transition: all 0.3s;
+        }
 
-.heart{
-    color:#d4af37;
-    margin:0 10px;
-}
+        .start-btn:hover {
+            background: #f4eee5;
+            color: var(--burgundy);
+            box-shadow: 0 0 20px rgba(244, 238, 229, 0.4);
+        }
 
-.line{
-    width:80px;
-    height:1px;
-    background:#d4af37;
-    margin:0 auto 30px;
-}
+        /* 🔒 ŞİFRE KİLİT EKRANI (BAŞLADIKTAN SONRA) 🔒 */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: radial-gradient(circle, #2d050a 0%, #0d0a0a 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
 
-h1{
-    font-size:32px;
-    font-weight:normal;
-    margin-bottom:15px;
-}
+        #login-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
 
-.subtitle{
-    color:#c8bfc3;
-    font-size:18px;
-    font-style:italic;
-    margin-bottom:40px;
-}
+        .login-card {
+            background: rgba(255, 255, 255, 0.96);
+            padding: 50px 40px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-button{
-    background:transparent;
-    color:#d4af37;
-    border:1px solid #d4af37;
-    padding:15px 35px;
-    font-size:16px;
-    letter-spacing:2px;
-    cursor:pointer;
-    border-radius:3px;
-    transition:.4s;
-}
+        .login-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            color: var(--dark-burgundy);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
 
-button:hover{
-    background:#d4af37;
-    color:#120b10;
-    transform:scale(1.05);
-}
+        .login-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
 
-/* İLK BÖLÜM */
+        .input-box {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            outline: none;
+            text-align: center;
+            transition: 0.3s;
+        }
 
-#story{
-    background:
-    linear-gradient(135deg,#100b0e,#1c1118,#090708);
-}
+        .input-box:focus {
+            border-color: var(--burgundy);
+            box-shadow: 0 0 8px rgba(92, 6, 18, 0.2);
+        }
 
-.story-content{
-    width:100%;
-    max-width:1000px;
-    animation:fadeIn 1.5s ease;
-}
+        .login-btn-confirm {
+            width: 100%;
+            padding: 15px;
+            background: var(--burgundy);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-.story-small{
-    color:#d4af37;
-    letter-spacing:4px;
-    text-transform:uppercase;
-    font-size:13px;
-    margin-bottom:25px;
-}
+        .login-btn-confirm:hover {
+            background: var(--accent-red);
+            transform: translateY(-2px);
+        }
 
-.story-content h2{
-    font-size:42px;
-    font-weight:normal;
-    margin-bottom:20px;
-}
+        .error-text {
+            color: #d9534f;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            display: none;
+        }
 
-.story-content p{
-    color:#cfc7ca;
-    font-size:19px;
-    line-height:1.8;
-}
+        /* 📜 AKIŞI 📜 */
+        .container {
+            width: 100%;
+            max-width: 850px;
+            padding: 40px 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
 
-/* İLK 3 FOTOĞRAF */
+        .page-block {
+            width: 100%;
+            min-height: 1100px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
+            overflow: hidden;
+        }
 
-.first-photos{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:22px;
-    margin:55px auto 30px;
-}
+        /* 🔴 1. SAYFA: BORDO SCRAPBOOK & UZUN NOT */
+        .page-1 {
+            background-color: var(--burgundy);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 0);
+            background-size: 20px 20px;
+            padding: 50px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-.first-photo{
-    width:220px;
-    height:300px;
-    padding:8px;
-    background:#151014;
-    border:1px solid rgba(212,175,55,.45);
-    box-shadow:0 20px 45px rgba(0,0,0,.55);
-    transition:.5s ease;
-}
+        .p1-top { display: flex; gap: 25px; }
 
-.first-photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
+        .p1-polaroid-main {
+            background: #fff;
+            padding: 15px 15px 45px 15px;
+            width: 50%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transform: rotate(-3deg);
+        }
 
-.photo-left{
-    transform:rotate(-6deg) translateY(12px);
-}
+        .p1-polaroid-main img { width: 100%; height: 280px; object-fit: cover; }
 
-.photo-center{
-    transform:scale(1.03);
-    z-index:2;
-}
+        .p1-caption {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-top: 12px;
+            color: #222;
+        }
 
-.photo-right{
-    transform:rotate(6deg) translateY(12px);
-}
+        .p1-paper-note {
+            background: var(--paper-light);
+            width: 50%;
+            padding: 30px 25px;
+            box-shadow: 5px 10px 25px rgba(0,0,0,0.3);
+            background-image: repeating-linear-gradient(transparent, transparent 31px, #e5dccf 32px);
+            line-height: 32px;
+        }
 
-.first-photo:hover{
-    transform:scale(1.06) rotate(0deg);
-    z-index:5;
-}
+        .p1-note-date { font-family: 'Caveat', cursive; font-size: 1.4rem; color: #777; text-align: right; }
+        .p1-note-heading { font-family: 'Alex Brush', cursive; font-size: 2.8rem; color: var(--accent-red); text-align: center; margin: 10px 0; }
+        .p1-note-body { font-family: 'Caveat', cursive; font-size: 1.45rem; color: #222; }
 
-.story-caption{
-    color:#c8bfc3;
-    font-size:16px;
-    font-style:italic;
-    margin:20px 0 30px;
-}
+        .p1-bottom { display: flex; justify-content: space-around; align-items: flex-end; margin-top: 40px; }
+        .p1-mini-polaroid {
+            background: #fff;
+            padding: 10px 10px 30px 10px;
+            width: 38%;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .p1-mini-polaroid img { width: 100%; height: 200px; object-fit: cover; }
 
-.story-caption span{
-    color:#d4af37;
-    margin:0 8px;
-}
+        /* 📰 2. SAYFA: ANI GAZETESİ (H HARFİ & TAKVİM BİREBİR) */
+        .page-2 {
+            background-color: var(--paper);
+            padding: 50px 40px;
+            border: 1px solid #d5c8b5;
+        }
 
-/* GALERİ */
+        .p2-header {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 4.2rem;
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: 3px;
+            border-bottom: 4px double #111;
+            padding-bottom: 10px;
+            margin-bottom: 35px;
+        }
 
-#gallery{
-    background:
-    linear-gradient(135deg,#090708,#1b1118,#0b080a);
-}
+        .p2-top-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .p2-main-photo { width: 100%; height: 380px; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .p2-ask-title { font-family: 'Bodoni Moda', serif; font-size: 3rem; font-weight: 900; text-align: right; margin-bottom: 15px; }
+        .p2-ask-text { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; line-height: 1.6; text-align: justify; }
 
-.photo-section{
-    width:100%;
-    max-width:1100px;
-}
+        .p2-calendar { background: #fff; padding: 20px; border: 1px solid #ccc; margin-top: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .p2-cal-month { font-family: 'Bodoni Moda', serif; font-size: 1.5rem; font-weight: 800; text-align: center; letter-spacing: 4px; margin-bottom: 12px; }
+        .p2-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; }
+        .p2-cal-header { font-weight: bold; color: #777; }
+        .august-8-circle {
+            border: 2px solid var(--accent-red);
+            color: var(--accent-red);
+            border-radius: 50%;
+            font-weight: bold;
+            display: inline-block;
+            width: 26px; height: 26px;
+            line-height: 22px;
+        }
 
-.photo-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:25px;
-    margin:45px auto;
-}
+        .p2-bottom-grid { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 30px; margin-top: 40px; align-items: center; }
+        .p2-long-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; line-height: 1.65; text-align: justify; }
+        .p2-big-h { font-family: 'Sacramento', cursive; font-size: 13rem; text-align: center; line-height: 0.8; color: #111; }
 
-.photo-item{
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(212,175,55,.3);
-    padding:10px;
-    transition:.4s ease;
-}
+        /* 🌹 3. SAYFA: AMOUR FOU & MÜHÜRLÜ ZARF */
+        .page-3 {
+            background-color: var(--burgundy);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+        }
 
-.photo-item:hover{
-    transform:translateY(-8px);
-    border-color:#d4af37;
-}
+        .p3-stamp-strip {
+            background: #fff;
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 6px dashed #ded4c5;
+            width: 100%;
+            max-width: 520px;
+        }
 
-.photo-item img{
-    width:100%;
-    height:360px;
-    object-fit:cover;
-    display:block;
-}
+        .p3-stamp-strip img { width: 100%; height: 170px; object-fit: cover; filter: grayscale(100%); }
 
-.photo-number{
-    color:#d4af37;
-    font-size:15px;
-    letter-spacing:2px;
-    margin-top:12px;
-}
+        .p3-envelope {
+            background: #fdfbf7;
+            width: 100%;
+            max-width: 550px;
+            padding: 45px 35px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            position: relative;
+            border-radius: 4px;
+        }
 
-/* ANİMASYON */
+        .p3-seal {
+            width: 65px; height: 65px;
+            background: var(--accent-red);
+            border-radius: 50%;
+            position: absolute;
+            top: -25px; right: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            display: flex; justify-content: center; align-items: center;
+            color: #fff; font-family: 'Playfair Display', serif;
+            font-weight: bold; font-size: 1.4rem; border: 3px solid #500;
+        }
 
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
+        .p3-title { font-family: 'Alex Brush', cursive; font-size: 3.5rem; color: var(--burgundy); margin-bottom: 15px; }
+        .p3-letter { font-family: 'Caveat', cursive; font-size: 1.6rem; line-height: 1.7; color: #2b2b2b; }
 
-/* TELEFON */
+        /* 📰 4. SAYFA: ONE YEAR VINTAGE GAZETE (BİREBİR GÖRSELDEKİ TASARIM) 📰 */
+        .page-4 {
+            background-color: #f6f3ee;
+            padding: 45px 35px;
+            border: 1px solid #d0c8be;
+            color: #111;
+        }
 
-@media(max-width:750px){
+        .p4-main-header {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 6.2rem;
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: -2px;
+            line-height: 0.9;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
 
-    .names{
-        font-size:35px;
-    }
+        .p4-divider-thin { border-top: 1px solid #111; margin: 12px 0; }
+        .p4-divider-double { border-top: 3px double #111; margin: 15px 0; }
 
-    h1{
-        font-size:25px;
-    }
+        .p4-sub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
 
-    .story-content h2{
-        font-size:32px;
-    }
+        .p4-oval {
+            border: 1.5px solid #111;
+            border-radius: 50px;
+            padding: 6px 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
 
-    .story-content p{
-        font-size:17px;
-    }
+        .p4-names-outline {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            -webkit-text-stroke: 1px #111;
+            color: transparent;
+        }
 
-    .first-photos{
-        gap:7px;
-    }
+        /* Gazete 3 Sütunlu İç Düzen */
+        .p4-newspaper-body {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr 1fr;
+            gap: 22px;
+            align-items: start;
+        }
 
-    .first-photo{
-        width:30vw;
-        height:42vw;
-        padding:5px;
-    }
+        .p4-col-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            text-align: justify;
+            color: #222;
+        }
 
-    .photo-grid{
-        grid-template-columns:1fr;
-    }
+        .p4-center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
-    .photo-item img{
-        height:420px;
-    }
-}
-</style>
+        .p4-center-title {
+            font-family: 'Bodoni Moda', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .p4-sub-meta {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            border-top: 1px solid #111;
+            border-bottom: 1px solid #111;
+            padding: 4px 0;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .p4-image-container {
+            width: 100%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            background: #fff;
+            padding: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .p4-image-container img {
+            width: 100%;
+            height: 330px;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(105%); /* Görseldeki gibi vintage S/B stili */
+        }
+
+        .p4-caption {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        /* 3'lü Kalp Doodle Efekti */
+        .p4-heart-doodle {
+            font-family: 'Sacramento', cursive;
+            font-size: 2.5rem;
+            color: #111;
+            margin-top: 5px;
+            letter-spacing: 8px;
+        }
+
+        .p4-footer-bar {
+            border-top: 1px solid #111;
+            padding-top: 18px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* 💖 5. SAYFA: MADALYON KALPLER */
+        .page-5 {
+            background-color: #e8e0d2;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .p5-polaroid {
+            background: #fff;
+            padding: 12px 12px 35px 12px;
+            width: 65%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: rotate(-2deg);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .p5-polaroid img { width: 100%; height: 250px; object-fit: cover; }
+        .p5-title { font-family: 'Alex Brush', cursive; font-size: 4.5rem; color: var(--burgundy); margin: 10px 0; }
+        .p5-lockets { display: flex; gap: 25px; margin: 20px 0; }
+
+        .locket-frame {
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            border: 4px solid #b59a72;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .locket-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 🏁 FINAL KAPANIŞ BÖLÜMÜ */
+        .page-final {
+            background: linear-gradient(135deg, #1f0004 0%, #5c0612 100%);
+            padding: 60px 40px;
+            text-align: center;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .final-frame {
+            background: #fff;
+            padding: 15px 15px 45px 15px;
+            width: 80%;
+            max-width: 420px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            margin-bottom: 35px;
+            transform: rotate(1deg);
+        }
+
+        .final-frame img { width: 100%; height: 320px; object-fit: cover; }
+        .final-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; line-height: 1.8; max-width: 650px; font-style: italic; color: #f2ece1; }
+
+        @media (max-width: 768px) {
+            .p1-top, .p2-top-grid, .p2-bottom-grid, .p4-newspaper-body { grid-template-columns: 1fr; flex-direction: column; }
+            .p1-polaroid-main, .p1-paper-note, .p1-mini-polaroid, .p5-polaroid { width: 100%; }
+            .p2-header { font-size: 2.8rem; }
+            .p4-main-header { font-size: 3.8rem; }
+            .p4-sub-header { flex-direction: column; gap: 12px; }
+            .p4-footer-bar { flex-direction: column; gap: 10px; text-align: center; }
+            .cover-title { font-size: 3.5rem; }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- AÇILIŞ -->
+    <!-- MÜZİK -->
+    <audio id="bg-music" loop>
+        <source src="muzik.mp3" type="audio/mpeg">
+    </audio>
 
-<section class="section" id="hero">
+    <!-- 🔒 GİRİŞ KAPAK EKRANI (İLK GÖRÜNEN) 🔒 -->
+    <div id="cover-screen">
+        <div class="cover-subtitle">BİZİM HİKAYEMİZ</div>
+        <h1 class="cover-title">Havin & Mervan</h1>
+        <button class="start-btn" onclick="startStory()">BAŞLA ♡</button>
+    </div>
 
-<div class="hero-content">
-
-<div class="names">
-Mervan <span class="heart">♥</span> Havin
-</div>
-
-<div class="line"></div>
-
-<h1>
-Birinci yılımızın hikâyesine hoş geldin.
-</h1>
-
-<div class="subtitle">
-Seninle geçen ilk 365 gün...
-</div>
-
-<button onclick="startStory()">
-Hikâyemize Başla →
-</button>
-
-</div>
-
-</section>
-
-
-<!-- İLK 3 FOTOĞRAF -->
-
-<section class="section" id="story">
-
-    <div class="story-content">
-
-        <div class="story-small">
-            BİRİNCİ YILIMIZ
+    <!-- 🔒 ŞİFRE KİLİT EKRANI (BAŞLADIKTAN SONRA) 🔒 -->
+    <div id="login-screen" class="hidden">
+        <div class="login-card">
+            <h1 class="login-title">Havin & Mervan</h1>
+            <p class="login-subtitle">Bizim Özel Anımız</p>
+            <input type="password" id="password" class="input-box" placeholder="Şifre (GG.AA.YYYY)">
+            <button class="login-btn-confirm" onclick="login()">GİRİŞ YAP ♡</button>
+            <div id="error-msg" class="error-text">Hatalı şifre! Lütfen tekrar deneyin.</div>
         </div>
+    </div>
 
-        <h2>
-            Her şey bir gün başladı...
-        </h2>
+    <!-- 📜 UZUN KAYDIRMALI İÇERİK 📜 -->
+    <div class="container">
 
-        <p>
-            Ve o gün, hayatımın en güzel başlangıçlarından
-            biri oldu.
-        </p>
+        <!-- 🔴 1. SAYFA: BORDO SCRAPBOOK & UZUN NOT -->
+        <section class="page-block page-1">
+            <div class="p1-top">
+                <div class="p1-polaroid-main">
+                    <img src="foto1.jpg" alt="Fotoğraf 1">
+                    <div class="p1-caption">u + me = &lt;3</div>
+                </div>
 
-        <div class="first-photos">
-
-            <div class="first-photo photo-left">
-                <img src="images/1.jpg" alt="İlk anımız">
+                <div class="p1-paper-note">
+                    <div class="p1-note-date">8 Ağustos 2025</div>
+                    <div class="p1-note-heading">Sonsuzluğum...</div>
+                    <div class="p1-note-body">
+                        Seninle tanıştığımız o günden beri hayatım bambaşka bir anlam kazandı. Birlikte katettiğimiz her yol, paylaştığımız her tebessüm bana ne kadar şanslı olduğumu hatırlatıyor. İyi ki varsın sevgilim...
+                    </div>
+                </div>
             </div>
 
-            <div class="first-photo photo-center">
-                <img src="images/2.jpg" alt="İlk anımız">
+            <div class="p1-bottom">
+                <div class="p1-mini-polaroid" style="transform: rotate(3deg);">
+                    <img src="cocukluk1.jpg" alt="Çocukluk 1">
+                    <div class="p1-caption">ben</div>
+                </div>
+                <div class="p1-mini-polaroid" style="transform: rotate(-3deg);">
+                    <img src="cocukluk2.jpg" alt="Çocukluk 2">
+                    <div class="p1-caption">sen</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 📰 2. SAYFA: ANI GAZETESİ (H HARFİ & TAKVİM BİREBİR) -->
+        <section class="page-block page-2">
+            <h1 class="p2-header">ANI GAZETESİ</h1>
+
+            <div class="p2-top-grid">
+                <img src="foto2.jpg" class="p2-main-photo" alt="Çocukluk / Birlikte Fotoğraf">
+                
+                <div>
+                    <h2 class="p2-ask-title">AŞK</h2>
+                    <p class="p2-ask-text">
+                        Tesadüf seni önüme çıkarmasaydı, gene aynı şekilde, fakat her şeyden habersiz yaşayıp gidecektim. Sen bana, dünyada başka türlü bir hayatın da mevcut olduğunu, benim de bir ruhum bulunduğunu öğrettin. Seni her şeyden çok seviyorum sevgilim.
+                    </p>
+
+                    <!-- Takvim (8 Ağustos 2025 Kalpli) -->
+                    <div class="p2-calendar">
+                        <div class="p2-cal-month">AĞUSTOS 2025</div>
+                        <div class="p2-cal-grid">
+                            <span class="p2-cal-header">Pz</span><span class="p2-cal-header">Sa</span><span class="p2-cal-header">Çş</span><span class="p2-cal-header">Pş</span><span class="p2-cal-header">Cu</span><span class="p2-cal-header">Ct</span><span class="p2-cal-header">Pa</span>
+                            <span></span><span></span><span></span><span></span>1<span>2</span><span>3</span>
+                            <span>4</span><span>5</span><span>6</span><span>7</span><span class="august-8-circle">8</span><span>9</span><span>10</span>
+                            <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span>
+                            <span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
+                            <span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="first-photo photo-right">
-                <img src="images/3.jpg" alt="İlk anımız">
+            <div class="p2-bottom-grid">
+                <p class="p2-long-text">
+                    Sana her baktığımda,kalbimin en derin köşesinde filizlenen o ilk günkü heyecanı hâlâ iliklerimde hissediyor,zamanın tüm yıpratıcılığına rağmen sana olan sevgimin bir an bile eksilmediğini,aksine her geçen gün seni daha çok tanıdıkça sana daha da bağlandığımı fark ediyorum; çünkü seninle geçen her saniye, varlığına minnet duyduğum bir mucize gibi içimi ısıtıyor,hayata karşı inancımı tazeliyor ve bilmeni isterim ki ne olursa olsun,senin ellerinde huzur bulan bu kalp,bir ömür boyu yalnızca sana ait kalacak.
+                </p>
+                <!-- A HARFİ YERİNE BÜYÜK H HARFİ -->
+                <div class="p2-big-h">H</div>
+            </div>
+        </section>
+
+        <!-- 🌹 3. SAYFA: AMOUR FOU & MÜHÜRLÜ MEKTUP -->
+        <section class="page-block page-3">
+            <div class="p3-stamp-strip">
+                <img src="pul1.jpg" alt="Pul 1">
+                <img src="pul2.jpg" alt="Pul 2">
+                <img src="pul3.jpg" alt="Pul 3">
+                <img src="pul4.jpg" alt="Pul 4">
             </div>
 
-        </div>
+            <div class="p3-envelope">
+                <div class="p3-seal">H&M</div>
+                <div class="p3-title">Amour Fou</div>
+                <p class="p3-letter">
+                    "Kendi dünyamızda yarattığımız bu eşsiz sevgi, zamanın ötesinde bir yere ait. Seninle attığımız her adım, tuttuğum her el benim en büyük huzurum..."
+                </p>
+            </div>
+        </section>
 
-        <div class="story-caption">
-            <span>♥</span>
-            İlk anılarımız...
-            <span>♥</span>
-        </div>
+        <!-- 📰 4. SAYFA: ONE YEAR VINTAGE GAZETE (GÖRSELİN BİREBİR AYNISI) -->
+        <section class="page-block page-4">
+            <h1 class="p4-main-header">ONE YEAR</h1>
 
-        <button onclick="showGallery()">
-            Hikâyemize Devam Et →
-        </button>
+            <div class="p4-divider-thin"></div>
+
+            <div class="p4-sub-header">
+                <div class="p4-oval">08 / 08</div>
+                <div class="p4-names-outline">HAVIN & MERVAN</div>
+                <div class="p4-oval">2025</div>
+            </div>
+
+            <div class="p4-divider-double"></div>
+
+            <div class="p4-newspaper-body">
+                <!-- Sol Sütun Metni -->
+                <div class="p4-col-text">
+                    Sene dönümümüz kutlu olsun sevgilim... Seninle geçen her gün, hayatımın en güzel hikayesini yazmak gibi. Yanındayken zamanın nasıl aktığını unutuyorum. Birlikte biriktirdiğimiz her anı, paylaştığımız her tebessüm ve üstesinden geldiğimiz her zorluk bana ne kadar şanslı bir insan olduğumu tekrar tekrar hatırlatıyor. İyi ki hayatımdasın, iyi ki elimi tutuyorsun.
+                </div>
+
+                <!-- Orta Sütun (Başlık, Görsel & Detaylar) -->
+                <div class="p4-center-content">
+                    <h2 class="p4-center-title">I LOVE YOU</h2>
+
+                    <div class="p4-sub-meta">
+                        <span>LOCATION</span>
+                        <span>DATE</span>
+                    </div>
+
+                    <div class="p4-image-container">
+                        <img src="foto3.jpg" alt="Bizim Fotoğrafımız">
+                    </div>
+
+                    <div class="p4-caption">[caption for the photo]</div>
+                    
+                    <!-- 3'lü Kalp Doodle -->
+                    <div class="p4-heart-doodle">♡ ♡ ♡</div>
+                </div>
+
+                <!-- Sağ Sütun Metni -->
+                <div class="p4-col-text">
+                    Sen benim sadece sevgilim değil, en güvenli limanım, en yakın arkadaşım ve geleceğe dair en güzel umudumsun. Gözlerinin içine baktığımda hissettiğim o huzur, dünyanın tüm karmaşasını unutturmaya yetiyor. Birlikte yürüyeceğimiz daha uzun yıllara, kahkahalarla dolu günlere ve sonsuz sevgimize... Seni her gün bir önceki günden çok daha fazla seviyorum.
+                </div>
+            </div>
+
+            <div class="p4-footer-bar">
+                <span>ILOVEYOUREYES</span>
+                <span>ILOVEYOURHANDS</span>
+                <span>ILOVEYOURSMILE</span>
+            </div>
+        </section>
+
+        <!-- 💖 5. SAYFA: MADALYON KALPLİ DÜZEN -->
+        <section class="page-block page-5">
+            <div class="p5-polaroid">
+                <img src="foto4.jpg" alt="Fotoğraf 4">
+                <div class="p1-caption">Bizim Favori Hikayemiz</div>
+            </div>
+
+            <div class="p5-title">My Love</div>
+
+            <div class="p5-lockets">
+                <div class="locket-frame"><img src="kalp1.jpg" alt="Kalp Resim 1"></div>
+                <div class="locket-frame"><img src="kalp2.jpg" alt="Kalp Resim 2"></div>
+            </div>
+        </section>
+
+        <!-- 🏁 FINAL: İLK FOTOĞRAF & KAPANIŞ -->
+        <section class="page-block page-final">
+            <div class="final-frame">
+                <img src="ilk_fotograf.jpg" alt="İlk Çekildiğimiz Fotoğraf">
+                <div class="p1-caption">İlk Çekildiğimiz Fotoğraf ♡</div>
+            </div>
+
+            <p class="final-quote">
+                "Bizim hikayemiz burada bitmiyor, aksine her geçen gün daha güzel bir sayfayla devam ediyor. Seni çok seviyorum Havin..."
+            </p>
+        </section>
 
     </div>
 
-</section>
-
-<!-- GALERİ -->
-
-<section class="section" id="gallery">
-
-<div class="photo-section">
-
-<div class="story-small">
-ANILARIMIZ
-</div>
-
-<h2>
-Birlikte geçen güzel günler...
-</h2>
-
-<div class="photo-grid" id="photoGrid"></div>
-
-<button onclick="nextPage()">
-Sonraki →
-</button>
-
-</div>
-
-</section>
-
-
-<script>
-
-function startStory(){
-
-document.getElementById("story").scrollIntoView({
-behavior:"smooth"
-});
-
-}
-
-
-function showGallery() {
-
-    currentStory = 0;
-
-    showStory(0);
-
-    document.getElementById("gallery").scrollIntoView({
-        behavior: "smooth"
-    });
-
-}
-
-
-/* 44 FOTOĞRAF */
-
-const photos=[];
-
-for(let i=4;i<=44;i++){
-
-photos.push("images/"+i+".jpg");
-
-}
-
-
-let currentPage=0;
-
-const photosPerPage=3;
-
-
-function showPhotos(){
-
-const grid=document.getElementById("photoGrid");
-
-grid.innerHTML="";
-
-const start=currentPage*photosPerPage;
-
-const end=Math.min(
-start+photosPerPage,
-photos.length
-);
-
-
-for(let i=start;i<end;i++){
-
-grid.innerHTML+=`
-
-<div class="photo-item">
-
-<img src="${photos[i]}" alt="Anımız">
-
-<div class="photo-number">
-${i+4}. ANIMIZ
-</div>
-
-</div>
-
-`;
-
-}
-
-}
-
-const stories = [
-    {
-        photos: [4, 5, 6],
-        title: "Birlikte geçen ilk günler...",
-        text: "Seni tanıdıkça hayatımda ne kadar güzel bir yere sahip olduğunu daha iyi anlamaya başladım."
-    },
-    {
-        photos: [7, 8, 9],
-        title: "Birlikte biriktirdiğimiz anılar...",
-        text: "Sen yanımdayken sıradan günler bile benim için unutulmaz bir anıya dönüştü."
-    },
-    {
-        photos: [10, 11, 12],
-        title: "Gülüşün...",
-        text: "Bazen sadece gülüşünü görmek bile bütün günümü güzelleştirmeye yetiyordu."
-    },
-    {
-        photos: [13, 14, 15],
-        title: "Yan yana...",
-        text: "Geçen zamanın nasıl bu kadar hızlı ilerlediğini anlamadan birbirinden güzel anılar biriktirdik."
-    },
-    {
-        photos: [16, 17, 18],
-        title: "Biz...",
-        text: "Her fotoğrafta başka bir anımız, her anımızda sana dair başka bir güzellik var."
-    },
-    {
-        photos: [19, 20, 21],
-        title: "Güzel günler...",
-        text: "Seninle geçirdiğim her gün, dönüp baktığımda yüzümde bir gülümseme bırakıyor."
-    },
-    {
-        photos: [22, 23, 24],
-        title: "Daha nice anılara...",
-        text: "İlk yılımız sadece başlangıçtı. Daha yaşayacağımız çok güzel şey olduğuna inanıyorum."
-    },
-    {
-        photos: [25, 26, 27],
-        title: "İyi ki...",
-        text: "İyi ki yollarımız kesişti, iyi ki hayatımın en güzel hikâyelerinden biri oldun."
-    },
-    {
-        photos: [28, 29, 30],
-        title: "Seninle...",
-        text: "Bazen bir fotoğraf tek başına çok şey anlatır. Çünkü içinde sen varsın."
-    },
-    {
-        photos: [31, 32, 33],
-        title: "Birlikte...",
-        text: "Geçirdiğimiz zamanın her saniyesini ayrı ayrı saklamak isterdim."
-    },
-    {
-        photos: [34, 35, 36],
-        title: "Anılarımız...",
-        text: "Bugün dönüp baktığımda ne kadar güzel bir yıl geçirdiğimizi daha iyi görüyorum."
-    },
-    {
-        photos: [37, 38, 39],
-        title: "Hikâyemiz...",
-        text: "Bu hikâyenin en güzel tarafı ise henüz bitmemiş olması."
-    },
-    {
-        photos: [40, 41, 42],
-        title: "Birinci yılımız...",
-        text: "365 gün geçti ama sana olan sevgim ilk günkü heyecanından hiçbir şey kaybetmedi."
-    },
-    {
-        photos: [43, 44],
-        title: "Ve daha başlangıç...",
-        text: "İlk yılımızın sonuna geldik. Ama bizim hikâyemizin daha yazılacak çok güzel sayfaları var."
-    }
-];
-
-let currentStory = 0;
-
-function showStory(index) {
-
-    const story = stories[index];
-
-    const gallery = document.getElementById("gallery");
-
-    gallery.querySelector(".story-small").textContent = "BİZİM HİKÂYEMİZ";
-
-    gallery.querySelector("h2").textContent = story.title;
-
-    const paragraphs = gallery.querySelectorAll("p");
-
-    if (paragraphs.length > 0) {
-        paragraphs[0].textContent = story.text;
-    }
-
-    const grid = document.getElementById("photoGrid");
-
-    grid.innerHTML = "";
-
-    story.photos.forEach((number, index) => {
-
-        const div = document.createElement("div");
-
-        div.className = "first-photo " +
-            (index === 0 ? "photo-left" : "") +
-            (index === 1 ? "photo-center" : "") +
-            (index === 2 ? "photo-right" : "");
-
-        div.innerHTML = `
-            <img src="images/${number}.jpg" alt="${story.title}">
-        `;
-
-        grid.appendChild(div);
-
-    });
-
-    const button = gallery.querySelector("button");
-
-    if (index === stories.length - 1) {
-        button.textContent = "Hikâyemizin Sonuna →";
-    } else {
-        button.textContent = "Hikâyemize Devam Et →";
-    }
-}
-
-function nextPage() {
-
-    if (currentStory < stories.length - 1) {
-
-        currentStory++;
-
-        showStory(currentStory);
-
-        document.getElementById("gallery").scrollIntoView({
-            behavior: "smooth"
+    <!-- 🎮 SCRIPT: GEÇİŞ, ŞİFRE (08.08.2025), MÜZİK VE KONFETİ 🎮 -->
+    <script>
+        // Kapaktan Şifre Ekranına Geçiş
+        function startStory() {
+            document.getElementById('cover-screen').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+        }
+
+        // Şifre Kontrolü
+        function login() {
+            const pass = document.getElementById('password').value.trim();
+            const error = document.getElementById('error-msg');
+            const loginScreen = document.getElementById('login-screen');
+            const music = document.getElementById('bg-music');
+
+            // Şifre kontrolü: 08.08.2025
+            if (pass === '08.08.2025') {
+                error.style.display = 'none';
+                loginScreen.classList.add('hidden');
+                
+                // Müzik çalma
+                music.play().catch(e => console.log("Müzik başlatılamadı:", e));
+
+                // Kalpli Konfeti
+                confetti({
+                    particleCount: 160,
+                    spread: 85,
+                    origin: { y: 0.6 },
+                    colors: ['#8b0000', '#5c0612', '#ffffff']
+                });
+            } else {
+                error.style.display = 'block';
+            }
+        }
+
+        // Enter tuşuyla da giriş yapmayı sağlar
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') login();
         });
-
-    }
-
-}
-
-</script>
-
+    </script>
 </body>
 </html>
