@@ -220,38 +220,149 @@
     margin: 0 auto 25px;
     border: 1px solid rgba(212, 175, 55, 0.4);
 }      
-    </style>
+<style>
+
+    /* burada senin mevcut CSS kodların var */
+
+    .memory-card {
+        ...
+    }
+
+    .memory-photo {
+        ...
+    }
+
+
+    /* YENİ KOD BURAYA */
+
+    .first-photos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin: 55px auto 25px;
+        perspective: 1000px;
+    }
+
+    .first-photo {
+        width: 210px;
+        height: 285px;
+        padding: 8px;
+        background: #151014;
+        border: 1px solid rgba(212, 175, 55, 0.45);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+        transition: 0.5s ease;
+    }
+
+    .first-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .photo-left {
+        transform: rotate(-7deg) translateY(12px);
+    }
+
+    .photo-center {
+        transform: scale(1.08);
+        z-index: 2;
+    }
+
+    .photo-right {
+        transform: rotate(7deg) translateY(12px);
+    }
+
+    .first-photo:hover {
+        transform: scale(1.08) rotate(0deg);
+        z-index: 5;
+    }
+
+    .story-caption {
+        color: #c8bfc3;
+        font-size: 16px;
+        font-style: italic;
+        margin: 25px 0 30px;
+    }
+
+    .story-caption span {
+        color: #d4af37;
+        margin: 0 8px;
+    }
+
+    .gallery-button {
+        margin-top: 5px;
+    }
+
+    @media (max-width: 700px) {
+
+        .first-photos {
+            gap: 8px;
+        }
+
+        .first-photo {
+            width: 30vw;
+            height: 42vw;
+            padding: 5px;
+        }
+
+    }
+
+</style>
+    
 </head>
 
 <body>
 
     <!-- AÇILIŞ -->
 
-    <section class="section" id="hero">
+    <section class="section" id="story">
 
-        <div class="hero-content">
+    <div class="story-content">
 
-            <div class="names">
-                Mervan <span class="heart">♥</span> Havin
+        <div class="story-small">
+            BİRİNCİ YILIMIZ
+        </div>
+
+        <h2>
+            Her şey bir gün başladı...
+        </h2>
+
+        <p>
+            Ve o gün, hayatımın en güzel başlangıçlarından
+            biri oldu.
+        </p>
+
+        <div class="first-photos">
+
+            <div class="first-photo photo-left">
+                <img src="images/1.jpg" alt="Mervan ve Havin">
             </div>
 
-            <div class="line"></div>
+            <div class="first-photo photo-center">
+                <img src="images/2.jpg" alt="Mervan ve Havin">
+            </div>
 
-            <h1>
-                Birinci yılımızın hikâyesine hoş geldin.
-            </h1>
-
-            <p class="subtitle">
-                Seninle geçen ilk 365 gün...
-            </p>
-
-            <button onclick="startStory()">
-                Hikâyemize Başla →
-            </button>
+            <div class="first-photo photo-right">
+                <img src="images/3.jpg" alt="Mervan ve Havin">
+            </div>
 
         </div>
 
-    </section>
+        <div class="story-caption">
+            <span>♥</span>
+            İlk anılarımız...
+            <span>♥</span>
+        </div>
+
+        <button onclick="showGallery()" class="gallery-button">
+            Hikâyemize Devam Et →
+        </button>
+
+    </div>
+
+</section>
 
 
     <!-- İLK HİKAYE BÖLÜMÜ -->
