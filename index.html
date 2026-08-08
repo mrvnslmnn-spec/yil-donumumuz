@@ -412,145 +412,52 @@ function showGallery() {
 
 /* 44 FOTOĞRAF */
 
-const stories = [
-    {
-        photos: [4, 5, 6],
-        title: "Birlikte geçen ilk günler...",
-        text: "Seni tanıdıkça hayatımda ne kadar güzel bir yere sahip olduğunu daha iyi anlamaya başladım."
-    },
-    {
-        photos: [7, 8, 9],
-        title: "Birlikte biriktirdiğimiz anılar...",
-        text: "Sen yanımdayken sıradan günler bile benim için unutulmaz bir anıya dönüştü."
-    },
-    {
-        photos: [10, 11, 12],
-        title: "Gülüşün...",
-        text: "Bazen sadece gülüşünü görmek bile bütün günümü güzelleştirmeye yetiyordu."
-    },
-    {
-        photos: [13, 14, 15],
-        title: "Yan yana...",
-        text: "Geçen zamanın nasıl bu kadar hızlı ilerlediğini anlamadan birbirinden güzel anılar biriktirdik."
-    },
-    {
-        photos: [16, 17, 18],
-        title: "Biz...",
-        text: "Her fotoğrafta başka bir anımız, her anımızda sana dair başka bir güzellik var."
-    },
-    {
-        photos: [19, 20, 21],
-        title: "Güzel günler...",
-        text: "Seninle geçirdiğim her gün, dönüp baktığımda yüzümde bir gülümseme bırakıyor."
-    },
-    {
-        photos: [22, 23, 24],
-        title: "Daha nice anılara...",
-        text: "İlk yılımız sadece başlangıçtı. Daha yaşayacağımız çok güzel şey olduğuna inanıyorum."
-    },
-    {
-        photos: [25, 26, 27],
-        title: "İyi ki...",
-        text: "İyi ki yollarımız kesişti, iyi ki hayatımın en güzel hikâyelerinden biri oldun."
-    },
-    {
-        photos: [28, 29, 30],
-        title: "Seninle...",
-        text: "Bazen bir fotoğraf tek başına çok şey anlatır. Çünkü içinde sen varsın."
-    },
-    {
-        photos: [31, 32, 33],
-        title: "Birlikte...",
-        text: "Geçirdiğimiz zamanın her saniyesini ayrı ayrı saklamak isterdim."
-    },
-    {
-        photos: [34, 35, 36],
-        title: "Anılarımız...",
-        text: "Bugün dönüp baktığımda ne kadar güzel bir yıl geçirdiğimizi daha iyi görüyorum."
-    },
-    {
-        photos: [37, 38, 39],
-        title: "Hikâyemiz...",
-        text: "Bu hikâyenin en güzel tarafı ise henüz bitmemiş olması."
-    },
-    {
-        photos: [40, 41, 42],
-        title: "Birinci yılımız...",
-        text: "365 gün geçti ama sana olan sevgim ilk günkü heyecanından hiçbir şey kaybetmedi."
-    },
-    {
-        photos: [43, 44],
-        title: "Ve daha başlangıç...",
-        text: "İlk yılımızın sonuna geldik. Ama bizim hikâyemizin daha yazılacak çok güzel sayfaları var."
-    }
-];
+const photos=[];
 
-let currentStory = 0;
+for(let i=4;i<=44;i++){
 
-function showStory(index) {
+photos.push("images/"+i+".jpg");
 
-    const story = stories[index];
-    const gallery = document.getElementById("gallery");
-
-    gallery.querySelector(".story-small").textContent = "BİZİM HİKÂYEMİZ";
-    gallery.querySelector("h2").textContent = story.title;
-
-    const paragraph = gallery.querySelector("p");
-
-    if (paragraph) {
-        paragraph.textContent = story.text;
-    }
-
-    const grid = document.getElementById("photoGrid");
-
-    grid.innerHTML = "";
-
-    story.photos.forEach(function(number) {
-
-        const div = document.createElement("div");
-
-        div.className = "photo-item";
-
-        div.innerHTML =
-            '<img src="images/' + number + '.jpg" alt="' + story.title + '">';
-
-        grid.appendChild(div);
-
-    });
-
-    const button = gallery.querySelector("button");
-
-    if (index === stories.length - 1) {
-        button.textContent = "Hikâyemizin Sonuna →";
-    } else {
-        button.textContent = "Hikâyemize Devam Et →";
-    }
 }
 
-function showGallery() {
 
-    currentStory = 0;
+let currentPage=0;
 
-    showStory(0);
+const photosPerPage=3;
 
-    document.getElementById("gallery").scrollIntoView({
-        behavior: "smooth"
-    });
+
+function showPhotos(){
+
+const grid=document.getElementById("photoGrid");
+
+grid.innerHTML="";
+
+const start=currentPage*photosPerPage;
+
+const end=Math.min(
+start+photosPerPage,
+photos.length
+);
+
+
+for(let i=start;i<end;i++){
+
+grid.innerHTML+=`
+
+<div class="photo-item">
+
+<img src="${photos[i]}" alt="Anımız">
+
+<div class="photo-number">
+${i+4}. ANIMIZ
+</div>
+
+</div>
+
+`;
+
 }
 
-function nextPage() {
-
-    if (currentStory < stories.length - 1) {
-
-        currentStory++;
-
-        showStory(currentStory);
-
-        document.getElementById("gallery").scrollIntoView({
-            behavior: "smooth"
-        });
-    }
-}
 }
 
 const stories = [
@@ -652,15 +559,14 @@ function showStory(index) {
 
         const div = document.createElement("div");
 
-      div.className = "photo-item";
-
-     div.innerHTML = `
-     <img src="images/${number}.jpg" alt="${story.title}">`;
+        div.className = "first-photo " +
+            (index === 0 ? "photo-left" : "") +
+            (index === 1 ? "photo-center" : "") +
+            (index === 2 ? "photo-right" : "");
 
         div.innerHTML = `
             <img src="images/${number}.jpg" alt="${story.title}">
-            
-            `;
+        `;
 
         grid.appendChild(div);
 
