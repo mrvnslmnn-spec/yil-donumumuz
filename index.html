@@ -477,6 +477,200 @@ behavior:"smooth"
 showPhotos();
 
 </script>
+<script>
+
+const stories = [
+
+    {
+        photos: [4, 5, 6],
+        title: "Birlikte geçen ilk günler...",
+        text: "Seni tanıdıkça hayatımda ne kadar güzel bir yere sahip olduğunu daha iyi anlamaya başladım."
+    },
+
+    {
+        photos: [7, 8, 9],
+        title: "Birlikte biriktirdiğimiz anılar...",
+        text: "Sen yanımdayken sıradan günler bile benim için unutulmaz bir anıya dönüştü."
+    },
+
+    {
+        photos: [10, 11, 12],
+        title: "Gülüşün...",
+        text: "Bazen sadece gülüşünü görmek bile bütün günümü güzelleştirmeye yetiyordu."
+    },
+
+    {
+        photos: [13, 14, 15],
+        title: "Yan yana...",
+        text: "Geçen zamanın nasıl bu kadar hızlı ilerlediğini anlamadan birbirinden güzel anılar biriktirdik."
+    },
+
+    {
+        photos: [16, 17, 18],
+        title: "Biz...",
+        text: "Her fotoğrafta başka bir anımız, her anımızda sana dair başka bir güzellik var."
+    },
+
+    {
+        photos: [19, 20, 21],
+        title: "Güzel günler...",
+        text: "Seninle geçirdiğim her gün, dönüp baktığımda yüzümde bir gülümseme bırakıyor."
+    },
+
+    {
+        photos: [22, 23, 24],
+        title: "Daha nice anılara...",
+        text: "İlk yılımız sadece başlangıçtı. Daha yaşayacağımız çok güzel şey olduğuna inanıyorum."
+    },
+
+    {
+        photos: [25, 26, 27],
+        title: "İyi ki...",
+        text: "İyi ki yollarımız kesişti, iyi ki hayatımın en güzel hikâyelerinden biri oldun."
+    },
+
+    {
+        photos: [28, 29, 30],
+        title: "Seninle...",
+        text: "Bazen bir fotoğraf tek başına çok şey anlatır. Çünkü içinde sen varsın."
+    },
+
+    {
+        photos: [31, 32, 33],
+        title: "Birlikte...",
+        text: "Geçirdiğimiz zamanın her saniyesini ayrı ayrı saklamak isterdim."
+    },
+
+    {
+        photos: [34, 35, 36],
+        title: "Anılarımız...",
+        text: "Bugün dönüp baktığımda ne kadar güzel bir yıl geçirdiğimizi daha iyi görüyorum."
+    },
+
+    {
+        photos: [37, 38, 39],
+        title: "Hikâyemiz...",
+        text: "Bu hikâyenin en güzel tarafı ise henüz bitmemiş olması."
+    },
+
+    {
+        photos: [40, 41, 42],
+        title: "Birinci yılımız...",
+        text: "365 gün geçti ama sana olan sevgim ilk günkü heyecanından hiçbir şey kaybetmedi."
+    },
+
+    {
+        photos: [43, 44],
+        title: "Ve daha başlangıç...",
+        text: "İlk yılımızın sonuna geldik. Ama bizim hikâyemizin daha yazılacak çok güzel sayfaları var."
+    }
+
+];
+
+
+let currentStory = 0;
+
+
+function createStory(story) {
+
+    const section = document.createElement("section");
+
+    section.className = "section story-page";
+
+    section.innerHTML = `
+
+        <div class="story-content">
+
+            <div class="story-small">
+                BİZİM HİKÂYEMİZ
+            </div>
+
+            <h2>
+                ${story.title}
+            </h2>
+
+            <p>
+                ${story.text}
+            </p>
+
+            <div class="first-photos">
+
+                ${story.photos.map((number, index) => `
+
+                    <div class="first-photo 
+                        ${index === 0 ? "photo-left" : ""}
+                        ${index === 1 ? "photo-center" : ""}
+                        ${index === 2 ? "photo-right" : ""}
+                    ">
+
+                        <img
+                            src="images/${number}.jpg"
+                            alt="${story.title}"
+                        >
+
+                    </div>
+
+                `).join("")}
+
+            </div>
+
+            <div class="story-caption">
+
+                <span>♥</span>
+
+                ${story.photos.length === 2
+                    ? "Hikâyemizin son sayfası..."
+                    : "Birlikte geçen güzel anlardan..."}
+
+                <span>♥</span>
+
+            </div>
+
+            <button onclick="nextStory()">
+
+                ${currentStory === stories.length - 1
+                    ? "Finale Geç →"
+                    : "Hikâyemize Devam Et →"}
+
+            </button>
+
+        </div>
+
+    `;
+
+    document.body.appendChild(section);
+
+}
+
+
+function nextStory() {
+
+    if (currentStory < stories.length - 1) {
+
+        currentStory++;
+
+        createStory(stories[currentStory]);
+
+        setTimeout(() => {
+
+            document
+                .querySelectorAll(".story-page")
+                [currentStory - 1]
+                .nextElementSibling
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        }, 100);
+
+    }
+
+}
+
+
+createStory(stories[0]);
+
+</script>
 
 </body>
 </html>
