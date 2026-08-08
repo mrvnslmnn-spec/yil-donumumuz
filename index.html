@@ -1,421 +1,483 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mervan ❤️ Havin</title>
 
-    <title>Mervan ❤️ Havin</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: #080607;
-            color: white;
-            font-family: Georgia, serif;
-        }
-
-        .section {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 25px;
-        }
-
-        /* AÇILIŞ */
-
-        #hero {
-            background:
-                radial-gradient(
-                    circle at center,
-                    #2a1a24 0%,
-                    #120b10 45%,
-                    #050505 100%
-                );
-        }
-
-        .hero-content {
-            animation: fadeIn 2s ease;
-        }
-
-        .names {
-            font-size: 50px;
-            letter-spacing: 3px;
-            margin-bottom: 25px;
-            font-weight: normal;
-        }
-
-        .heart {
-            color: #d4af37;
-            margin: 0 10px;
-        }
-
-        .line {
-            width: 80px;
-            height: 1px;
-            background: #d4af37;
-            margin: 0 auto 30px;
-        }
-
-        h1 {
-            font-size: 32px;
-            font-weight: normal;
-            margin-bottom: 15px;
-        }
-
-        .subtitle {
-            color: #c8bfc3;
-            font-size: 18px;
-            font-style: italic;
-            margin-bottom: 40px;
-        }
-
-        button {
-            background: transparent;
-            color: #d4af37;
-            border: 1px solid #d4af37;
-            padding: 15px 35px;
-            font-size: 16px;
-            letter-spacing: 2px;
-            cursor: pointer;
-            border-radius: 3px;
-            transition: 0.4s;
-        }
-
-        button:hover {
-            background: #d4af37;
-            color: #120b10;
-            transform: scale(1.05);
-        }
-
-        /* İLK HİKAYE BÖLÜMÜ */
-
-        #story {
-            background:
-                linear-gradient(
-                    135deg,
-                    #100b0e,
-                    #1c1118,
-                    #090708
-                );
-        }
-
-        .story-content {
-            max-width: 750px;
-            animation: fadeIn 1.5s ease;
-        }
-
-        .story-small {
-            color: #d4af37;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
-
-        .story-content h2 {
-            font-size: 42px;
-            font-weight: normal;
-            margin-bottom: 25px;
-        }
-
-        .story-content p {
-            color: #cfc7ca;
-            font-size: 19px;
-            line-height: 1.9;
-        }
-
-        .story-heart {
-            color: #d4af37;
-            font-size: 35px;
-            margin-top: 35px;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .names {
-                font-size: 35px;
-            }
-
-            h1 {
-                font-size: 25px;
-            }
-
-            .story-content h2 {
-                font-size: 32px;
-            }
-
-            .story-content p {
-                font-size: 17px;
-            }
-        }
-        .memory-card {
-    margin-top: 45px;
-    padding: 30px;
-    border: 1px solid rgba(212, 175, 55, 0.35);
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 5px;
-}
-
-.photo-placeholder {
-    width: 280px;
-    height: 330px;
-    margin: 0 auto 25px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    border: 1px solid rgba(212, 175, 55, 0.4);
-
-    color: #d4af37;
-    font-size: 40px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #21151c,
-            #0b080a
-        );
-}
-
-.memory-card h3 {
-    font-size: 25px;
-    font-weight: normal;
-    margin-bottom: 15px;
-}
-
-.memory-card p {
-    color: #bdb5b8;
-    font-size: 16px;
-    line-height: 1.7;
-}
-  .memory-photo {
-    width: 280px;
-    height: 330px;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto 25px;
-    border: 1px solid rgba(212, 175, 55, 0.4);
-}      
 <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    /* burada senin mevcut CSS kodların var */
+html{
+    scroll-behavior:smooth;
+}
 
-    .memory-card {
-        ...
+body{
+    background:#080607;
+    color:#fff;
+    font-family:Georgia,serif;
+}
+
+.section{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:60px 25px;
+}
+
+/* AÇILIŞ */
+
+#hero{
+    background:
+    radial-gradient(circle at center,#2a1a24 0%,#120b10 45%,#050505 100%);
+}
+
+.hero-content{
+    animation:fadeIn 2s ease;
+}
+
+.names{
+    font-size:50px;
+    letter-spacing:3px;
+    margin-bottom:25px;
+    font-weight:normal;
+}
+
+.heart{
+    color:#d4af37;
+    margin:0 10px;
+}
+
+.line{
+    width:80px;
+    height:1px;
+    background:#d4af37;
+    margin:0 auto 30px;
+}
+
+h1{
+    font-size:32px;
+    font-weight:normal;
+    margin-bottom:15px;
+}
+
+.subtitle{
+    color:#c8bfc3;
+    font-size:18px;
+    font-style:italic;
+    margin-bottom:40px;
+}
+
+button{
+    background:transparent;
+    color:#d4af37;
+    border:1px solid #d4af37;
+    padding:15px 35px;
+    font-size:16px;
+    letter-spacing:2px;
+    cursor:pointer;
+    border-radius:3px;
+    transition:.4s;
+}
+
+button:hover{
+    background:#d4af37;
+    color:#120b10;
+    transform:scale(1.05);
+}
+
+/* İLK BÖLÜM */
+
+#story{
+    background:
+    linear-gradient(135deg,#100b0e,#1c1118,#090708);
+}
+
+.story-content{
+    width:100%;
+    max-width:1000px;
+    animation:fadeIn 1.5s ease;
+}
+
+.story-small{
+    color:#d4af37;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+.story-content h2{
+    font-size:42px;
+    font-weight:normal;
+    margin-bottom:20px;
+}
+
+.story-content p{
+    color:#cfc7ca;
+    font-size:19px;
+    line-height:1.8;
+}
+
+/* İLK 3 FOTOĞRAF */
+
+.first-photos{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:22px;
+    margin:55px auto 30px;
+}
+
+.first-photo{
+    width:220px;
+    height:300px;
+    padding:8px;
+    background:#151014;
+    border:1px solid rgba(212,175,55,.45);
+    box-shadow:0 20px 45px rgba(0,0,0,.55);
+    transition:.5s ease;
+}
+
+.first-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.photo-left{
+    transform:rotate(-6deg) translateY(12px);
+}
+
+.photo-center{
+    transform:scale(1.03);
+    z-index:2;
+}
+
+.photo-right{
+    transform:rotate(6deg) translateY(12px);
+}
+
+.first-photo:hover{
+    transform:scale(1.06) rotate(0deg);
+    z-index:5;
+}
+
+.story-caption{
+    color:#c8bfc3;
+    font-size:16px;
+    font-style:italic;
+    margin:20px 0 30px;
+}
+
+.story-caption span{
+    color:#d4af37;
+    margin:0 8px;
+}
+
+/* GALERİ */
+
+#gallery{
+    background:
+    linear-gradient(135deg,#090708,#1b1118,#0b080a);
+}
+
+.photo-section{
+    width:100%;
+    max-width:1100px;
+}
+
+.photo-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+    margin:45px auto;
+}
+
+.photo-item{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(212,175,55,.3);
+    padding:10px;
+    transition:.4s ease;
+}
+
+.photo-item:hover{
+    transform:translateY(-8px);
+    border-color:#d4af37;
+}
+
+.photo-item img{
+    width:100%;
+    height:360px;
+    object-fit:cover;
+    display:block;
+}
+
+.photo-number{
+    color:#d4af37;
+    font-size:15px;
+    letter-spacing:2px;
+    margin-top:12px;
+}
+
+/* ANİMASYON */
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* TELEFON */
+
+@media(max-width:750px){
+
+    .names{
+        font-size:35px;
     }
 
-    .memory-photo {
-        ...
+    h1{
+        font-size:25px;
     }
 
-
-    /* YENİ KOD BURAYA */
-
-    .first-photos {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        margin: 55px auto 25px;
-        perspective: 1000px;
+    .story-content h2{
+        font-size:32px;
     }
 
-    .first-photo {
-        width: 210px;
-        height: 285px;
-        padding: 8px;
-        background: #151014;
-        border: 1px solid rgba(212, 175, 55, 0.45);
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
-        transition: 0.5s ease;
+    .story-content p{
+        font-size:17px;
     }
 
-    .first-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
+    .first-photos{
+        gap:7px;
     }
 
-    .photo-left {
-        transform: rotate(-7deg) translateY(12px);
+    .first-photo{
+        width:30vw;
+        height:42vw;
+        padding:5px;
     }
 
-    .photo-center {
-        transform: scale(1.08);
-        z-index: 2;
+    .photo-grid{
+        grid-template-columns:1fr;
     }
 
-    .photo-right {
-        transform: rotate(7deg) translateY(12px);
+    .photo-item img{
+        height:420px;
     }
-
-    .first-photo:hover {
-        transform: scale(1.08) rotate(0deg);
-        z-index: 5;
-    }
-
-    .story-caption {
-        color: #c8bfc3;
-        font-size: 16px;
-        font-style: italic;
-        margin: 25px 0 30px;
-    }
-
-    .story-caption span {
-        color: #d4af37;
-        margin: 0 8px;
-    }
-
-    .gallery-button {
-        margin-top: 5px;
-    }
-
-    @media (max-width: 700px) {
-
-        .first-photos {
-            gap: 8px;
-        }
-
-        .first-photo {
-            width: 30vw;
-            height: 42vw;
-            padding: 5px;
-        }
-
-    }
-
+}
 </style>
-    
 </head>
 
 <body>
 
-    <!-- AÇILIŞ -->
+<!-- AÇILIŞ -->
 
-    <section class="section" id="story">
+<section class="section" id="hero">
 
-    <div class="story-content">
+<div class="hero-content">
 
-        <div class="story-small">
-            BİRİNCİ YILIMIZ
-        </div>
+<div class="names">
+Mervan <span class="heart">♥</span> Havin
+</div>
 
-        <h2>
-            Her şey bir gün başladı...
-        </h2>
+<div class="line"></div>
 
-        <p>
-            Ve o gün, hayatımın en güzel başlangıçlarından
-            biri oldu.
-        </p>
+<h1>
+Birinci yılımızın hikâyesine hoş geldin.
+</h1>
 
-        <div class="first-photos">
+<div class="subtitle">
+Seninle geçen ilk 365 gün...
+</div>
 
-            <div class="first-photo photo-left">
-                <img src="images/1.jpg" alt="Mervan ve Havin">
-            </div>
+<button onclick="startStory()">
+Hikâyemize Başla →
+</button>
 
-            <div class="first-photo photo-center">
-                <img src="images/2.jpg" alt="Mervan ve Havin">
-            </div>
-
-            <div class="first-photo photo-right">
-                <img src="images/3.jpg" alt="Mervan ve Havin">
-            </div>
-
-        </div>
-
-        <div class="story-caption">
-            <span>♥</span>
-            İlk anılarımız...
-            <span>♥</span>
-        </div>
-
-        <button onclick="showGallery()" class="gallery-button">
-            Hikâyemize Devam Et →
-        </button>
-
-    </div>
+</div>
 
 </section>
 
 
-    <!-- İLK HİKAYE BÖLÜMÜ -->
+<!-- İLK 3 FOTOĞRAF -->
 
-    <section class="section" id="story">
+<section class="section" id="story">
 
-        <div class="story-content">
+<div class="story-content">
 
-            <div class="story-small">
-                Birinci yılımız
-            </div>
+<div class="story-small">
+BİRİNCİ YILIMIZ
+</div>
 
-            <h2>
-                Her şey bir gün başladı...
-            </h2>
+<h2>
+Her şey bir gün başladı...
+</h2>
 
-            <p>
-                Ve o gün, hayatımın en güzel başlangıçlarından
-                biri oldu.
-            </p>
+<p>
+Ve o gün, hayatımın en güzel başlangıçlarından
+biri oldu.
+</p>
 
-            <div class="story-heart">
-                ♥
-            </div>
-<div class="memory-card">
+<div class="first-photos">
 
-   <img src="images/1.jpg" class="memory-photo" alt="İlk anımız">
-    
-    <h3>İlk anımız</h3>
+<div class="first-photo photo-left">
+<img src="images/1.jpg" alt="İlk anımız">
+</div>
 
-    <p>
-        Bazen bir insanın hayatına ne zaman
-        bu kadar güzel bir şekilde girdiğini
-        fark edemezsin.
-    </p>
+<div class="first-photo photo-center">
+<img src="images/2.jpg" alt="İlk anımız">
+</div>
+
+<div class="first-photo photo-right">
+<img src="images/3.jpg" alt="İlk anımız">
+</div>
 
 </div>
-        </div>
 
-    </section>
+<div class="story-caption">
+<span>♥</span>
+İlk anılarımız...
+<span>♥</span>
+</div>
+
+<button onclick="showGallery()">
+Hikâyemize Devam Et →
+</button>
+
+</div>
+
+</section>
 
 
-    <script>
+<!-- GALERİ -->
 
-        function startStory() {
+<section class="section" id="gallery">
 
-            document.getElementById("story").scrollIntoView({
-                behavior: "smooth"
-            });
+<div class="photo-section">
 
-        }
+<div class="story-small">
+ANILARIMIZ
+</div>
+
+<h2>
+Birlikte geçen güzel günler...
+</h2>
+
+<div class="photo-grid" id="photoGrid"></div>
+
+<button onclick="nextPage()">
+Sonraki →
+</button>
+
+</div>
+
+</section>
+
+
+<script>
+
+function startStory(){
+
+document.getElementById("story").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+function showGallery(){
+
+document.getElementById("gallery").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+
+/* 44 FOTOĞRAF */
+
+const photos=[];
+
+for(let i=4;i<=44;i++){
+
+photos.push("images/"+i+".jpg");
+
+}
+
+
+let currentPage=0;
+
+const photosPerPage=3;
+
+
+function showPhotos(){
+
+const grid=document.getElementById("photoGrid");
+
+grid.innerHTML="";
+
+const start=currentPage*photosPerPage;
+
+const end=Math.min(
+start+photosPerPage,
+photos.length
+);
+
+
+for(let i=start;i<end;i++){
+
+grid.innerHTML+=`
+
+<div class="photo-item">
+
+<img src="${photos[i]}" alt="Anımız">
+
+<div class="photo-number">
+${i+4}. ANIMIZ
+</div>
+
+</div>
+
+`;
+
+}
+
+}
+
+
+function nextPage(){
+
+if((currentPage+1)*photosPerPage<photos.length){
+
+currentPage++;
+
+showPhotos();
+
+document.getElementById("gallery").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+}
+
+
+showPhotos();
+
 </script>
-<script src="photos.js"></script>
 
 </body>
 </html>
