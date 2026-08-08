@@ -397,11 +397,15 @@ behavior:"smooth"
 }
 
 
-function showGallery(){
+function showGallery() {
 
-document.getElementById("gallery").scrollIntoView({
-behavior:"smooth"
-});
+    currentStory = 0;
+
+    showStory(0);
+
+    document.getElementById("gallery").scrollIntoView({
+        behavior: "smooth"
+    });
 
 }
 
@@ -456,219 +460,142 @@ ${i+4}. ANIMIZ
 
 }
 
-
-function nextPage(){
-
-if((currentPage+1)*photosPerPage<photos.length){
-
-currentPage++;
-
-showPhotos();
-
-document.getElementById("gallery").scrollIntoView({
-behavior:"smooth"
-});
-
-}
-
-}
-
-
-showPhotos();
-
-</script>
-<script>
-
 const stories = [
-
     {
         photos: [4, 5, 6],
         title: "Birlikte geçen ilk günler...",
         text: "Seni tanıdıkça hayatımda ne kadar güzel bir yere sahip olduğunu daha iyi anlamaya başladım."
     },
-
     {
         photos: [7, 8, 9],
         title: "Birlikte biriktirdiğimiz anılar...",
         text: "Sen yanımdayken sıradan günler bile benim için unutulmaz bir anıya dönüştü."
     },
-
     {
         photos: [10, 11, 12],
         title: "Gülüşün...",
         text: "Bazen sadece gülüşünü görmek bile bütün günümü güzelleştirmeye yetiyordu."
     },
-
     {
         photos: [13, 14, 15],
         title: "Yan yana...",
         text: "Geçen zamanın nasıl bu kadar hızlı ilerlediğini anlamadan birbirinden güzel anılar biriktirdik."
     },
-
     {
         photos: [16, 17, 18],
         title: "Biz...",
         text: "Her fotoğrafta başka bir anımız, her anımızda sana dair başka bir güzellik var."
     },
-
     {
         photos: [19, 20, 21],
         title: "Güzel günler...",
         text: "Seninle geçirdiğim her gün, dönüp baktığımda yüzümde bir gülümseme bırakıyor."
     },
-
     {
         photos: [22, 23, 24],
         title: "Daha nice anılara...",
         text: "İlk yılımız sadece başlangıçtı. Daha yaşayacağımız çok güzel şey olduğuna inanıyorum."
     },
-
     {
         photos: [25, 26, 27],
         title: "İyi ki...",
         text: "İyi ki yollarımız kesişti, iyi ki hayatımın en güzel hikâyelerinden biri oldun."
     },
-
     {
         photos: [28, 29, 30],
         title: "Seninle...",
         text: "Bazen bir fotoğraf tek başına çok şey anlatır. Çünkü içinde sen varsın."
     },
-
     {
         photos: [31, 32, 33],
         title: "Birlikte...",
         text: "Geçirdiğimiz zamanın her saniyesini ayrı ayrı saklamak isterdim."
     },
-
     {
         photos: [34, 35, 36],
         title: "Anılarımız...",
         text: "Bugün dönüp baktığımda ne kadar güzel bir yıl geçirdiğimizi daha iyi görüyorum."
     },
-
     {
         photos: [37, 38, 39],
         title: "Hikâyemiz...",
         text: "Bu hikâyenin en güzel tarafı ise henüz bitmemiş olması."
     },
-
     {
         photos: [40, 41, 42],
         title: "Birinci yılımız...",
         text: "365 gün geçti ama sana olan sevgim ilk günkü heyecanından hiçbir şey kaybetmedi."
     },
-
     {
         photos: [43, 44],
         title: "Ve daha başlangıç...",
         text: "İlk yılımızın sonuna geldik. Ama bizim hikâyemizin daha yazılacak çok güzel sayfaları var."
     }
-
 ];
-
 
 let currentStory = 0;
 
+function showStory(index) {
 
-function createStory(story) {
+    const story = stories[index];
 
-    const section = document.createElement("section");
+    const gallery = document.getElementById("gallery");
 
-    section.className = "section story-page";
+    gallery.querySelector(".story-small").textContent = "BİZİM HİKÂYEMİZ";
 
-    section.innerHTML = `
+    gallery.querySelector("h2").textContent = story.title;
 
-        <div class="story-content">
+    const paragraphs = gallery.querySelectorAll("p");
 
-            <div class="story-small">
-                BİZİM HİKÂYEMİZ
-            </div>
+    if (paragraphs.length > 0) {
+        paragraphs[0].textContent = story.text;
+    }
 
-            <h2>
-                ${story.title}
-            </h2>
+    const grid = document.getElementById("photoGrid");
 
-            <p>
-                ${story.text}
-            </p>
+    grid.innerHTML = "";
 
-            <div class="first-photos">
+    story.photos.forEach((number, index) => {
 
-                ${story.photos.map((number, index) => `
+        const div = document.createElement("div");
 
-                    <div class="first-photo 
-                        ${index === 0 ? "photo-left" : ""}
-                        ${index === 1 ? "photo-center" : ""}
-                        ${index === 2 ? "photo-right" : ""}
-                    ">
+        div.className = "first-photo " +
+            (index === 0 ? "photo-left" : "") +
+            (index === 1 ? "photo-center" : "") +
+            (index === 2 ? "photo-right" : "");
 
-                        <img
-                            src="images/${number}.jpg"
-                            alt="${story.title}"
-                        >
+        div.innerHTML = `
+            <img src="images/${number}.jpg" alt="${story.title}">
+        `;
 
-                    </div>
+        grid.appendChild(div);
 
-                `).join("")}
+    });
 
-            </div>
+    const button = gallery.querySelector("button");
 
-            <div class="story-caption">
-
-                <span>♥</span>
-
-                ${story.photos.length === 2
-                    ? "Hikâyemizin son sayfası..."
-                    : "Birlikte geçen güzel anlardan..."}
-
-                <span>♥</span>
-
-            </div>
-
-            <button onclick="nextStory()">
-
-                ${currentStory === stories.length - 1
-                    ? "Finale Geç →"
-                    : "Hikâyemize Devam Et →"}
-
-            </button>
-
-        </div>
-
-    `;
-
-    document.body.appendChild(section);
-
+    if (index === stories.length - 1) {
+        button.textContent = "Hikâyemizin Sonuna →";
+    } else {
+        button.textContent = "Hikâyemize Devam Et →";
+    }
 }
 
-
-function nextStory() {
+function nextPage() {
 
     if (currentStory < stories.length - 1) {
 
         currentStory++;
 
-        createStory(stories[currentStory]);
+        showStory(currentStory);
 
-        setTimeout(() => {
-
-            document
-                .querySelectorAll(".story-page")
-                [currentStory - 1]
-                .nextElementSibling
-                .scrollIntoView({
-                    behavior: "smooth"
-                });
-
-        }, 100);
+        document.getElementById("gallery").scrollIntoView({
+            behavior: "smooth"
+        });
 
     }
 
 }
-
-
-createStory(stories[0]);
 
 </script>
 
