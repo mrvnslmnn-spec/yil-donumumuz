@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mervan ❤️ Havin</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                radial-gradient(circle at center, #2a1a24 0%, #120b10 45%, #050505 100%);
+            color: white;
+            font-family: Georgia, serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            animation: fadeIn 2s ease;
+        }
+
+        .names {
+            font-size: 48px;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            font-weight: normal;
+        }
+
+        .heart {
+            color: #d4af37;
+            margin: 0 10px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            color: #c8bfc3;
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 40px;
+        }
+
+        button {
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            padding: 15px 35px;
+            font-size: 16px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.4s;
+            border-radius: 3px;
+        }
+
+        button:hover {
+            background: #d4af37;
+            color: #120b10;
+            transform: scale(1.05);
+        }
+
+        .line {
+            width: 80px;
+            height: 1px;
+            background: #d4af37;
+            margin: 0 auto 30px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .names {
+                font-size: 34px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="names">
+            Mervan <span class="heart">♥</span> Havin
+        </div>
+
+        <div class="line"></div>
+
+        <h1>Birinci yılımızın hikâyesine hoş geldin.</h1>
+
+        <p class="subtitle">
+            Seninle geçen ilk 365 gün...
+        </p>
+
+        <button>
+            Hikâyemize Başla →
+        </button>
+
+    </div>
+
+</body>
+</html>
