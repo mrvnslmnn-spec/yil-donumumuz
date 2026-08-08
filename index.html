@@ -559,14 +559,15 @@ function showStory(index) {
 
         const div = document.createElement("div");
 
-        div.className = "first-photo " +
-            (index === 0 ? "photo-left" : "") +
-            (index === 1 ? "photo-center" : "") +
-            (index === 2 ? "photo-right" : "");
+      div.className = "photo-item";
+
+     div.innerHTML = `
+     <img src="images/${number}.jpg" alt="${story.title}">`;
 
         div.innerHTML = `
             <img src="images/${number}.jpg" alt="${story.title}">
-        `;
+            
+            `;
 
         grid.appendChild(div);
 
