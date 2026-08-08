@@ -13,26 +13,43 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
+            background: #080607;
+            color: white;
+            font-family: Georgia, serif;
+        }
+
+        .section {
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background:
-                radial-gradient(circle at center, #2a1a24 0%, #120b10 45%, #050505 100%);
-            color: white;
-            font-family: Georgia, serif;
-            overflow: hidden;
+            text-align: center;
+            padding: 40px 25px;
         }
 
-        .container {
-            text-align: center;
-            padding: 30px;
+        /* AÇILIŞ */
+
+        #hero {
+            background:
+                radial-gradient(
+                    circle at center,
+                    #2a1a24 0%,
+                    #120b10 45%,
+                    #050505 100%
+                );
+        }
+
+        .hero-content {
             animation: fadeIn 2s ease;
         }
 
         .names {
-            font-size: 48px;
+            font-size: 50px;
             letter-spacing: 3px;
             margin-bottom: 25px;
             font-weight: normal;
@@ -41,6 +58,13 @@
         .heart {
             color: #d4af37;
             margin: 0 10px;
+        }
+
+        .line {
+            width: 80px;
+            height: 1px;
+            background: #d4af37;
+            margin: 0 auto 30px;
         }
 
         h1 {
@@ -64,8 +88,8 @@
             font-size: 16px;
             letter-spacing: 2px;
             cursor: pointer;
-            transition: 0.4s;
             border-radius: 3px;
+            transition: 0.4s;
         }
 
         button:hover {
@@ -74,17 +98,53 @@
             transform: scale(1.05);
         }
 
-        .line {
-            width: 80px;
-            height: 1px;
-            background: #d4af37;
-            margin: 0 auto 30px;
+        /* İLK HİKAYE BÖLÜMÜ */
+
+        #story {
+            background:
+                linear-gradient(
+                    135deg,
+                    #100b0e,
+                    #1c1118,
+                    #090708
+                );
+        }
+
+        .story-content {
+            max-width: 750px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .story-small {
+            color: #d4af37;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        .story-content h2 {
+            font-size: 42px;
+            font-weight: normal;
+            margin-bottom: 25px;
+        }
+
+        .story-content p {
+            color: #cfc7ca;
+            font-size: 19px;
+            line-height: 1.9;
+        }
+
+        .story-heart {
+            color: #d4af37;
+            font-size: 35px;
+            margin-top: 35px;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(25px);
             }
 
             to {
@@ -94,16 +154,21 @@
         }
 
         @media (max-width: 600px) {
+
             .names {
-                font-size: 34px;
+                font-size: 35px;
             }
 
             h1 {
                 font-size: 25px;
             }
 
-            .subtitle {
-                font-size: 16px;
+            .story-content h2 {
+                font-size: 32px;
+            }
+
+            .story-content p {
+                font-size: 17px;
             }
         }
     </style>
@@ -111,30 +176,74 @@
 
 <body>
 
-    <div class="container">
+    <!-- AÇILIŞ -->
 
-        <div class="names">
-            Mervan <span class="heart">♥</span> Havin
+    <section class="section" id="hero">
+
+        <div class="hero-content">
+
+            <div class="names">
+                Mervan <span class="heart">♥</span> Havin
+            </div>
+
+            <div class="line"></div>
+
+            <h1>
+                Birinci yılımızın hikâyesine hoş geldin.
+            </h1>
+
+            <p class="subtitle">
+                Seninle geçen ilk 365 gün...
+            </p>
+
+            <button onclick="startStory()">
+                Hikâyemize Başla →
+            </button>
+
         </div>
 
-        <div class="line"></div>
+    </section>
 
-        <h1>Birinci yılımızın hikâyesine hoş geldin.</h1>
 
-        <p class="subtitle">
-            Seninle geçen ilk 365 gün...
-        </p>
+    <!-- İLK HİKAYE BÖLÜMÜ -->
 
-       <button onclick="startStory()">
-            Hikâyemize Başla →
-       </button>
+    <section class="section" id="story">
 
-    </div>
-<script>
-    function startStory() {
-        alert("Hikâyemiz şimdi başlıyor ❤️");
-    }
-</script>
+        <div class="story-content">
+
+            <div class="story-small">
+                Birinci yılımız
+            </div>
+
+            <h2>
+                Her şey bir gün başladı...
+            </h2>
+
+            <p>
+                Ve o gün, hayatımın en güzel başlangıçlarından
+                biri oldu.
+            </p>
+
+            <div class="story-heart">
+                ♥
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        function startStory() {
+
+            document.getElementById("story").scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+    </script>
 
 </body>
 </html>
